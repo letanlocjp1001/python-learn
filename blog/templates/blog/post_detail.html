@@ -7,16 +7,33 @@
 <div class="mt-4 prose max-w-none">
     {{ post.content|linebreaks }}
 </div>
+{% if post.category %}
+<p class="text-sm">カテゴリー:
+    <a href="{% url 'category_posts' post.category.slug %}" class="text-blue-500 underline">
+        {{ post.category.name }}
+    </a>
+</p>
+{% endif %}
+
+{% if post.tags.all %}
+<p class="text-sm">タグ:
+    {% for tag in post.tags.all %}
+    <a href="{% url 'tag_posts' tag.slug %}" class="text-green-500 underline">
+        #{{ tag.name }}
+    </a>
+    {% endfor %}
+</p>
+{% endif %}
 <p class="mt-4"><a href="/blog/" class="text-blue-500 underline">← 戻る</a></p>
 
 
 <div class="mt-10 flex justify-between">
     {% if prev_post %}
-        <a href="{% url 'post_detail' prev_post.slug %}" class="text-blue-500 underline">← {{ prev_post.title }}</a>
+    <a href="{% url 'post_detail' prev_post.slug %}" class="text-blue-500 underline">← {{ prev_post.title }}</a>
     {% endif %}
 
     {% if next_post %}
-        <a href="{% url 'post_detail' next_post.slug %}" class="text-blue-500 underline">{{ next_post.title }} →</a>
+    <a href="{% url 'post_detail' next_post.slug %}" class="text-blue-500 underline">{{ next_post.title }} →</a>
     {% endif %}
 </div>
 {% endblock %}

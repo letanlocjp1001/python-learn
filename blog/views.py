@@ -1,6 +1,6 @@
 from django.core.paginator import Paginator # Tạo phân trang
 from django.shortcuts import render, get_object_or_404 # Lấy đối tượng hoặc trả về 404
-from .models import Post # Nhập mô hình Post
+from .models import Post, Category, Tag # Nhập mô hình Post
 from django.db.models import Q # Dùng để lọc bài viết
 
 
@@ -38,4 +38,16 @@ def post_detail(request, slug):
 
         })
 
+
+# 🔹 Lọc bài theo Category
+def category_posts(request, slug):
+    category = get_object_or_404(Category, slug=slug)
+    posts = Post.objects.filter(category=category).order_by('-created_at')
+    return render(request, 'blog/category_posts.html', {'category': category, 'posts': posts})
+
+# 🔹 Lọc bài theo Tag
+def tag_posts(request, slug):
+    tag = get_object_or_404(Tag, slug=slug)
+    posts = Post.objects.filter(tags=tag).order_by('-created_at')
+    return render(request, 'blog/tag_posts.html', {'tag': tag, 'posts': posts})
 
