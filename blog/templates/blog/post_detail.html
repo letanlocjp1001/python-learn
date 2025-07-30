@@ -4,8 +4,8 @@
 {% block content %}
 <h1 class="text-2xl font-bold">{{ post.title }}</h1>
 <p class="text-sm text-gray-500">{{ post.created_at|date:"d/m/Y H:i" }}</p>
-<div class="mt-4 prose max-w-none">
-    {{ post.content|linebreaks }}
+<div class="prose max-w-none">
+    {{ post.content|safe }}
 </div>
 {% if post.category %}
 <p class="text-sm">カテゴリー:

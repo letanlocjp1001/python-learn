@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.utils.text import slugify
+from ckeditor_uploader.fields import RichTextUploadingField
 
 
 # 🔹 Category (1-nhiều: 1 category có nhiều bài)
@@ -24,7 +25,7 @@ class Tag(models.Model):
 class Post(models.Model): 
     title = models.CharField(max_length=200)
     slug = models.SlugField(unique=True)
-    content = models.TextField()
+    content = RichTextUploadingField()
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True, blank=True, related_name='posts')  # Cho phép không có category
     tags = models.ManyToManyField(Tag, blank=True, related_name='posts')  # Cho phép không có tag
