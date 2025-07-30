@@ -37,7 +37,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'blog'
+    'blog',
+    'ckeditor',  # Thêm ứng dụng CKEditor
+    'ckeditor_uploader',  # Thêm ứng dụng CKEditor Uploader
 ]
 
 MIDDLEWARE = [
@@ -69,6 +71,12 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'app2025.wsgi.application'
 
+# Thư mục upload ảnh
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'
+
+# Cấu hình CKEditor
+CKEDITOR_UPLOAD_PATH = "uploads/"
 
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
