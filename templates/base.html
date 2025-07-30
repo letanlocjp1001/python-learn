@@ -1,0 +1,17 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}ブログ{% endblock %}</title>
+    <link href="{% static 'css/output.css' %}" rel="stylesheet">
+</head>
+
+<body class="bg-gray-100 text-gray-800 p-4">
+    <div class="container mx-auto">
+        {% block content %}{% endblock %}
+    </div>
+</body>
+
+</html>

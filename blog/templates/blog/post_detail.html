@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block title %}{{ post.title }}{% endblock %}
+
+{% block content %}
+<h1 class="text-2xl font-bold">{{ post.title }}</h1>
+<p class="text-sm text-gray-500">{{ post.created_at|date:"d/m/Y H:i" }}</p>
+<div class="mt-4 prose max-w-none">
+    {{ post.content|linebreaks }}
+</div>
+<p class="mt-4"><a href="/blog/" class="text-blue-500 underline">← 戻る</a></p>
+
+
+<div class="mt-10 flex justify-between">
+    {% if prev_post %}
+        <a href="{% url 'post_detail' prev_post.slug %}" class="text-blue-500 underline">← {{ prev_post.title }}</a>
+    {% endif %}
+
+    {% if next_post %}
+        <a href="{% url 'post_detail' next_post.slug %}" class="text-blue-500 underline">{{ next_post.title }} →</a>
+    {% endif %}
+</div>
+{% endblock %}
+{% load static %}

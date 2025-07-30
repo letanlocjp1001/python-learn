@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% block title %}ブログ一覧{% endblock %}
+
+{% block content %}
+<div>
+    <form action="" method="get" class="mb-4 flex justify-center gap-2">
+        <input type="text" name="q" placeholder="キーワードで検索" class="border p-2 rounded w-full max-w-xs" value="{{ query|default_if_none:'' }}">
+        <button type="submit" class="bg-blue-500 text-white p-2 rounded">検索</button>
+    </form>
+    {% if query %}
+        <p class="text-sm text-shadow-black">検索結果: <strong>{{ query }}</strong></p>
+    {% endif %}
+</div>
+<h1 class="text-3xl font-bold mb-4 text-center">リスト</h1>
+<ul>
+    {% for post in posts %}
+    <li class="mt-2 max-w-max">
+        <a href="{% url 'post_detail' post.slug %}">
+            <dl class="flex gap-2.5 text-xl">
+                <dt>{{ post.created_at|date:"d/m/Y" }}</dt>
+                <dd>
+                    {{ post.title }}
+                </dd>
+            </dl>
+        </a>
+
+    </li>
+    {% empty %}
+    <li>まだ何もありません</li>
+    {% endfor %}
+</ul>
+
+<div class="mt-4 flex justify-center gap-5">
+    {% if posts.has_previous %}
+        <a href="?q={{ query }}&page=1">« First</a>
+        <a href="?q={{ query }}&page={{ posts.previous_page_number }}">‹ Prev</a>
+    {% endif %}
+
+    <span>Page {{ posts.number }} of {{ posts.paginator.num_pages }}</span>
+
+    {% if posts.has_next %}
+        <a href="?q={{ query }}&page={{ posts.next_page_number }}">Next ›</a>
+        <a href="?q={{ query }}&page={{ posts.paginator.num_pages }}">Last »</a>
+    {% endif %}
+</div>
+{% endblock %}
